@@ -1,4 +1,4 @@
-import {ADD_V6_ENGINE, RACING_DETAIL_PACKAGE, PREMIUM_SOUND_SYSTEM, ADD_REAR_SPOILER} from "../actions";
+import {ADD_FEATURES, REMOVE_FEATURES} from "../actions";
 
 export const initialState = {
     additionalPrice: 0,
@@ -19,38 +19,41 @@ export const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case(ADD_FEATURES):
+        const addFeature = state.additionalFeatures.find(
+            (feature) => feature.id === action.payload
+        )
 
-        case (ADD_V6_ENGINE):
-            return({
+        return({
+            ...state,
+
+            car: {
+                ...state.car,
+                features: [...state.car.features, addFeature]
+            },
+
+            additionalFeatures: state.additionalFeatures.filter(
+                (feature) => feature.id !== action.payload
+            ),
+
+            additionalPrice: state.additionalPrice + addFeature.price
+        });
+
+        case(REMOVE_FEATURES):
+            const removedFeature = state.car.features.find(
+                (feature) => feature.id === action.payload
+            );
+            return {
                 ...state,
-                additionalPrice: state.additionalFeatures[0].price,
-              
-            });
-        
-        case (RACING_DETAIL_PACKAGE):
-            return({
-                ...state,
-                additionalPrice: state.additionalFeatures[1].price,
                 
-            });
-        
-        case (PREMIUM_SOUND_SYSTEM):
-            return({
-                ...state,
-                additionalPrice: state.additionalFeatures[2].price,
-                
-            });
+                additionalPrice: state.additionalPrice - removedFeature.price,
+                additionalFeatures: [...state.additionalFeatures, removedFeature]
 
-        case (ADD_REAR_SPOILER):
-            return({
-                ...state,
-                additionalPrice: state.additionalFeatures[3].price,
-                
-            });
+            }
 
 
-            default:
-                return state;
+        default:
+            return state;
     }
 };
 

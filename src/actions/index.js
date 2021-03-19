@@ -1,18 +1,15 @@
-export const ADD_V6_ENGINE = "ADD_V6_ENGINE";
-export const RACING_DETAIL_PACKAGE = "RACING_DETAIL_PACKAGE";
-export const PREMIUM_SOUND_SYSTEM = "PREMIUM_SOUND_SYSTEM";
-export const ADD_REAR_SPOILER = "ADD_REAR_SPOLIER";
+export const ADD_FEATURES = "ADD_FEATURES";
+
+export const REMOVE_FEATURES = "REMOVE_FEATURES";
 
 
-export const addV6 = () => {
-    return ({type:ADD_V6_ENGINE});
+export const addFeatures = (id) => {
+    return ({type:ADD_FEATURES, payload: id});
 }
-export const racingPackage = () => {
-    return ({type:RACING_DETAIL_PACKAGE});
+export const removeFeatures = (id) => {
+    return ({type:REMOVE_FEATURES, payload: id});
 }
-export const premiumSystem = () => {
-    return ({type:PREMIUM_SOUND_SYSTEM});
-}
-export const addRearSpoiler = () => {
-    return ({type:ADD_REAR_SPOILER});
-}
+
+
+
+
